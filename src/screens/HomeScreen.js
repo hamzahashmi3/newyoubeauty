@@ -2,20 +2,20 @@ import React, { useState, useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Button, Form } from 'react-bootstrap'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
 import Latestproducts from '../components/latestproduct'
-// import ProductCarousel from '../components/ProductCarousel'
-import { Button, Form } from 'react-bootstrap'
+
 import { useNavigate } from 'react-router-dom'
 import SearchBox from '../components/SearchBox'
 import { listProducts } from '../actions/productActions'
 
 
 function HomeScreen({ history }) {
+
 
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productList)
@@ -62,7 +62,7 @@ function HomeScreen({ history }) {
 
                         {/* <!-- Home Slider Item --> */}
                         <div className="owl-item">
-                            <div className="home_slider_background" style={{backgroundImage:"url(images/home_slider_1.jpg)"}}></div>
+                            <div className="home_slider_background" style={{ backgroundImage: "url(images/home_slider_1.jpg)" }}></div>
                             <div className="home_slider_content">
                                 <div className="container">
                                     <div className="row">
@@ -85,7 +85,7 @@ function HomeScreen({ history }) {
 
                         {/* <!-- Home Slider Item --> */}
                         <div className="owl-item">
-                            <div className="home_slider_background" style={{backgroundImage:"url(images/home_slider_1.jpg)"}}></div>
+                            <div className="home_slider_background" style={{ backgroundImage: "url(images/home_slider_1.jpg)" }}></div>
                             <div className="home_slider_content">
                                 <div className="container">
                                     <div className="row">
@@ -122,7 +122,7 @@ function HomeScreen({ history }) {
                     <div className="row">
                         <div className="col">
                             <div className="section_title_container text-center">
-                                <h2 className="section_title">Welcome To NEWYOu E-Learning</h2>
+                                <h2 className="section_title">Welcome To New You E-Learning</h2>
                                 <div className="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
                             </div>
                         </div>
@@ -182,102 +182,61 @@ function HomeScreen({ history }) {
                             </div>
                         </div>
                     </div>
-                    <div className="row courses_row">
 
-                        {/* <!-- Course --> */}
-                        <div className="col-lg-4 course_col">
-                            <div className="course">
-                                <div className="course_image"><img src="images/course_1.jpg" alt="" /></div>
-                                <div className="course_body">
-                                    <h3 className="course_title"><a href="course.html">Software Training</a></h3>
-                                    <div className="course_teacher">Mr. John Taylor</div>
-                                    <div className="course_text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-                                    </div>
+                    {loading ? <Loader />
+                        : error ? <Message variant='danger'>{error}</Message>
+                            :
+                            <div className="row courses_row">
+                                {products.map((product, index) => (
+
+                                    <Product product={product} key={index} />
+
+                                ))}
+
+                                <Paginate page={page} pages={pages} keyword={keyword} />
+                            </div>
+                    }
+
+                    {/* <!-- Course -->
+                    <div className="col-lg-4 course_col">
+                        <div className="course">
+                            <div className="course_image"><img src="images/course_2.jpg" alt="" /></div>
+                            <div className="course_body">
+                                <h3 className="course_title"><a href="course.html">Developing Mobile Apps</a></h3>
+                                <div className="course_teacher">Ms. Lucius</div>
+                                <div className="course_text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
                                 </div>
-                                <div className="course_footer">
-                                    <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="course_info">
-                                            <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            <span>20 Student</span>
-                                        </div>
-                                        <div className="course_info">
-                                            <i className="fa fa-star" aria-hidden="true"></i>
-                                            <span>5 Ratings</span>
-                                        </div>
-                                        <div className="course_price ml-auto">$130</div>
+                            </div>
+                            <div className="course_footer">
+                                <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                    <div className="course_info">
+                                        <i className="fa fa-graduation-cap" aria-hidden="true"></i>
+                                        <span>20 Student</span>
                                     </div>
+                                    <div className="course_info">
+                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                        <span>5 Ratings</span>
+                                    </div>
+                                    <div className="course_price ml-auto">Free</div>
                                 </div>
                             </div>
                         </div>
+                    </div> */}
 
-                        {/* <!-- Course --> */}
-                        <div className="col-lg-4 course_col">
-                            <div className="course">
-                                <div className="course_image"><img src="images/course_2.jpg" alt="" /></div>
-                                <div className="course_body">
-                                    <h3 className="course_title"><a href="course.html">Developing Mobile Apps</a></h3>
-                                    <div className="course_teacher">Ms. Lucius</div>
-                                    <div className="course_text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-                                    </div>
-                                </div>
-                                <div className="course_footer">
-                                    <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="course_info">
-                                            <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            <span>20 Student</span>
-                                        </div>
-                                        <div className="course_info">
-                                            <i className="fa fa-star" aria-hidden="true"></i>
-                                            <span>5 Ratings</span>
-                                        </div>
-                                        <div className="course_price ml-auto">Free</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* <!-- Course --> */}
-                        <div className="col-lg-4 course_col">
-                            <div className="course">
-                                <div className="course_image"><img src="images/course_3.jpg" alt="" /></div>
-                                <div className="course_body">
-                                    <h3 className="course_title"><a href="course.html">Starting a Startup</a></h3>
-                                    <div className="course_teacher">Mr. Charles</div>
-                                    <div className="course_text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-                                    </div>
-                                </div>
-                                <div className="course_footer">
-                                    <div className="course_footer_content d-flex flex-row align-items-center justify-content-start">
-                                        <div className="course_info">
-                                            <i className="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            <span>20 Student</span>
-                                        </div>
-                                        <div className="course_info">
-                                            <i className="fa fa-star" aria-hidden="true"></i>
-                                            <span>5 Ratings</span>
-                                        </div>
-                                        <div className="course_price ml-auto"><span>$320</span>$220</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <div className="courses_button trans_200"><a href="#">view all courses</a></div>
-                        </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <div className="courses_button trans_200"><a href="#">view all courses</a></div>
                     </div>
                 </div>
             </div>
 
+
             {/* <!-- Counter --> */}
 
             <div className="counter">
-                <div className="counter_background" style={{backgroundImage:"url(images/counter_background.jpg)"}}></div>
+                <div className="counter_background" style={{ backgroundImage: "url(images/counter_background.jpg)" }}></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6">
@@ -617,7 +576,7 @@ function HomeScreen({ history }) {
 
             {/* <!-- Newsletter --> */}
 
-            <div className="newsletter">
+            <div className="newsletter pt-1">
                 <div className="newsletter_background parallax-window" data-parallax="scroll" data-image-src="images/newsletter.jpg" data-speed="0.8"></div>
                 <div className="container">
                     <div className="row">
@@ -634,7 +593,7 @@ function HomeScreen({ history }) {
                                 <div className="newsletter_form_container ml-lg-auto">
                                     <form action="#" id="newsletter_form" className="newsletter_form d-flex flex-row align-items-center justify-content-center">
                                         <input type="email" className="newsletter_input" placeholder="Your Email" required="required" />
-                                            <button type="submit" className="newsletter_button">subscribe</button>
+                                        <button type="submit" className="newsletter_button">subscribe</button>
                                     </form>
                                 </div>
 
@@ -645,236 +604,7 @@ function HomeScreen({ history }) {
             </div>
 
         </>
-    );
-};
+    )
+}
 
-export default HomeScreen;
-
-
-
-{/* 
-<div>
-            {/* {!keyword && <ProductCarousel />} */}
-
-{/*<section className="hero">
-        <div className="container">
-            <div className="row">
-                {/* <div className="col-lg-3">
-                    <div className="hero__categories">
-                        <div className="hero__categories__all">
-                            <i className="fa fa-bars"></i>
-                            <span>All departments</span>
-                        </div>
-                        <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
-                        </ul>
-                    </div>
-                </div> */}
-{/* <div className="col-lg-12">
-                    <div className="hero__search">
-                        <div className="hero__search__form w-75">
-                            <form action="#">
-                                <div className="hero__search__categories">
-                                    All Categories
-                                    <span className="arrow_carrot-down"></span>
-                                </div>
-                            </form>
-                            <SearchBox />
-                        </div>
-                        <div className="hero__search__phone px-3">
-                            <div className="hero__search__phone__icon">
-                                <i className="fa fa-phone"></i>
-                            </div>
-                            <div className="hero__search__phone__text">
-                                <h5>+92301-7111141</h5>
-                                <span>support 24/7 time</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12" data-setbg="images/hero/banner.jpg">
-                                <img src="images/hero/banner.jpg" className="veg_img w-100" style={{height:"73vh"}} alt="" />
-                            </div>
-                            <div className="hero__text carousel-caption" style={{position: "absolute", left:"-25%", top:"35%"}}>
-                                <span className="ml-3">FRUIT FRESH</span>
-                                <h2 className="ml-3" style={{fontSize: "30px"}}>Vegetable <br />100% Organic</h2>
-                                <p className="ml-4">Free Pickup and Delivery Available</p>
-                                <Link to="/shop" className="primary-btn">SHOP NOW</Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section className="featured spad">
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-12">
-                    <div className="section-title">
-                        <h2>Featured Product</h2>
-                    </div>
-                    <div className="featured__controls">
-                        <ul>
-                            <li className="active" data-filter="*">All</li>
-                            <li data-filter=".oranges">Oranges</li>
-                            <li data-filter=".fresh-meat">Fresh Meat</li>
-                            <li data-filter=".vegetables">Vegetables</li>
-                            <li data-filter=".fastfood">Fastfood</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-                {loading ? <Loader />
-                    : error ? <Message variant='danger'>{error}</Message>
-                        :
-                        <div className="row featured__filter">
-                            {products.map((product, index) => (
-
-                                    <Product product={product} key={index} />
-
-                            ))}
-
-                            <Paginate page={page} pages={pages} keyword={keyword} />
-                        </div>
-                }
-        </div>
-
-    </section>
-
-
-    <div className="banner">
-        <div className="container">
-            <div className="row">
-                {/* <div className="col-lg-6 col-md-6 col-sm-6"> */}
-{/* <div className="banner__pic">
-                        {banners.map((banner, indx) =>
-                            <img src={banner.img} key={indx} alt="" />
-                        )}
-                    </div> */}
-{/* </div> */ }
-{/*</div>
-        </div>
-    </div>
-
-
-    <section className="latest-product spad">
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-4 col-md-6">
-                    <div className="latest-product__text">
-                        <h4>Latest Products</h4>
-                        {loading ? <Loader />
-                            : error ? <Message variant='danger'>{error}</Message>
-                                :
-                                <div className="row featured__filter">
-                                    {products.slice(-3,-1).map((latestproducts, pro) => (
-
-                                        <Latestproducts latestproducts={latestproducts} key={pro} />
-
-                                    ))}
-
-                                </div>
-                        }
-
-                    </div>
-                </div>
-                <div className="col-lg-4 col-md-6">
-                    <div className="latest-product__text">
-                        <h4>Top Rated Products</h4>
-                        <div className="latest-product__slider owl-carousel">
-                            <div className="latest-prdouct__slider__item">
-                                {loading ? <Loader />
-                                    : error ? <Message variant='danger'>{error}</Message>
-                                        :
-                                        <div className="row featured__filter">
-                                            {products.slice(0,3).map((latestproducts, top) => (
-
-                                                <Latestproducts latestproducts={latestproducts} key={top} />
-
-                                            ))}
-
-                                        </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-lg-4 col-md-6">
-                    <div className="latest-product__text">
-                        <h4>Review Products</h4>
-                        <div className="latest-product__slider owl-carousel">
-                            <div className="latest-prdouct__slider__item">
-                            {loading ? <Loader />
-                                    : error ? <Message variant='danger'>{error}</Message>
-                                        :
-                                        <div className="row featured__filter">
-                                            {products.slice(0,3).map((latestproducts, review) => (
-
-                                                <Latestproducts latestproducts={latestproducts} key={review} />
-
-                                            ))}
-
-                                        </div>
-                            }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    {/* Blog Post Section */}
-{/* <section className="from-blog spad">
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-12">
-                    <div className="section-title from-blog__title">
-                        <h2>From The Blog</h2>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-
-            {posts.map((post, blog) =>
-                <div className="col-lg-4 col-md-4 col-sm-6" key={blog}>
-                    <div className="blog__item">
-                        <div className="blog__item__pic">
-                            <img src={post.img} alt="" />
-                        </div>
-                        <div className="blog__item__text">
-                            <ul>
-                                <li><i className="fa fa-calendar-o"></i> {post.date} </li>
-                                <li><i className="fa fa-comment-o"></i> {post.comnt} </li>
-                            </ul>
-                            <h5><a href="#">{post.title} </a></h5>
-                            <p> {post.para} </p>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            </div>
-        </div>
-    </section>
-
-
-
-
-            </div> */}
+export default HomeScreen
