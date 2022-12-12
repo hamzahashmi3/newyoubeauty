@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
@@ -20,19 +20,18 @@ import OrderListScreen from './screens/OrderListScreen'
 
 import Contact from './components/contact_us'
 import ShopScreen from './screens/ShopScreen'
-import About from './components/About'
 import Blog from './components/Blog'
+import About from './components/About'
 
 
-
-function App() {
+const App = () => {
 
   return (
     <Router>
       <Header />
       <main className="py-3">
         <Routes>
-          <Route path='/' element={<HomeScreen />} />
+          <Route path='/' element={<HomeScreen />} exact />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/profile' element={<ProfileScreen />} />
@@ -51,11 +50,11 @@ function App() {
 
           <Route path='/admin/orderlist' element={<OrderListScreen />} />
 
-
           <Route path='/contact' element={<Contact />} />
-          <Route path='/about' element={<About />} />
           <Route path='/shop' element={<ShopScreen />} />
+          <Route path='/about' element={<About />} />
           <Route path='/blog' element={<Blog />} />
+          
         </Routes>
       </main>
       <Footer />

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function SearchBox() {
     const [keyword, setKeyword] = useState('')
 
-    let history = useNavigate()
+    const history = useNavigate()
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -17,19 +17,12 @@ function SearchBox() {
         }
     }
     return (
-        <Form onSubmit={submitHandler} inline>
-            <Form.Control
-                type='text'
-                name='q'
-                onChange={(e) => setKeyword(e.target.value)}
-                className='mr-sm-4 ml-sm-3 px-2 w-100 md-6'
-            ></Form.Control>
-
-            <Button
-                type='submit'
-                variant='outline-success'
-                className='p-2 site-btn px-4 rounded-0'> Search </Button>
-        </Form>
+        <form onSubmit={submitHandler} className="header_search_form">
+            <input type="search" onChange={(e) => setKeyword(e.target.value)} className="search_input" name='q' placeholder="Search" required="required" />
+            <button type="submit" className="header_search_button d-flex flex-column align-items-center justify-content-center">
+                <i className="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </form>
     )
 }
 
